@@ -82,6 +82,7 @@ compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
 
+
 // gradle 5.0 이상부터는 이하의 문구를 추가해야 한다.
 configurations {
     compileOnly {

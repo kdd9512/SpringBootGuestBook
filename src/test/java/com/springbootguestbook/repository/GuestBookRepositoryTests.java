@@ -21,19 +21,19 @@ public class GuestBookRepositoryTests {
     @Autowired
     private GuestBookRepository guestbookRepository;
 
-    @Test
-    public void insertDummies() {
-
-        IntStream.rangeClosed(1, 300).forEach(i -> {
-
-            GuestBook guestBook = GuestBook.builder()
-                    .title("Title.." + i)
-                    .content("Content.." + i)
-                    .writer("Writer.." + i)
-                    .build();
-            System.out.println(guestbookRepository.save(guestBook));
-        });
-    }
+//    @Test
+//    public void insertDummies() {
+//
+//        IntStream.rangeClosed(1, 300).forEach(i -> {
+//
+//            GuestBook guestBook = GuestBook.builder()
+//                    .title("Title.." + i)
+//                    .content("Content.." + i)
+//                    .writer("Writer.." + i)
+//                    .build();
+//            System.out.println(guestbookRepository.save(guestBook));
+//        });
+//    }
 
     @Test
     public void updateTest() {
