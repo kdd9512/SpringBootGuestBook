@@ -2,11 +2,18 @@ package com.springbootguestbook.service;
 
 
 import com.springbootguestbook.dto.GuestBookDTO;
+import com.springbootguestbook.dto.PageRequestDTO;
+import com.springbootguestbook.dto.PageResultDTO;
 import com.springbootguestbook.entity.GuestBook;
 import com.springbootguestbook.repository.GuestBookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Function;
 
 @Service
 @Log4j2 // 동작을 확인하기 위해 적용하는 annotation
@@ -28,4 +35,16 @@ public class GuestBookServiceImpl implements GuestBookService {
 
         return entity.getGno();
     }
+
+    @Override
+    public PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
+
+        Page<GuestBook> result = repository.findAll(pageable);
+
+        Function<GuestBook, GuestBookDTO> fn = (entity -> entityToDTO(entity));
+
+        return new PageResultDTO<>(result,fn);
+    }
+
 }
