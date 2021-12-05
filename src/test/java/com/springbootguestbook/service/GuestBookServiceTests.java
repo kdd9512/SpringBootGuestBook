@@ -26,20 +26,44 @@ public class GuestBookServiceTests {
         System.out.println(service.register(guestBookDTO));
     }
 
-    @Test
-    public void testList() {
+//    @Test
+//    public void testList() {
+//
+//        PageRequestDTO pageRequestDTO =
+//                PageRequestDTO.builder()
+//                .page(1)
+//                .size(10)
+//                .build();
+//
+//        PageResultDTO<GuestBookDTO, GuestBook> resultDTO =
+//                service.getList(pageRequestDTO);
+//
+//        for (GuestBookDTO guestBookDTO : resultDTO.getDtoList()) {
+//            System.out.println(guestBookDTO);
+//        }
+//    }
 
-        PageRequestDTO pageRequestDTO =
-                PageRequestDTO.builder()
+    @Test
+    public void testList(){
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
 
-        PageResultDTO<GuestBookDTO, GuestBook> resultDTO =
+        PageResultDTO<GuestBookDTO,GuestBook> resultDTO =
                 service.getList(pageRequestDTO);
+
+        System.out.println("PREV : " + resultDTO.isPrev());
+        System.out.println("NEXT : " + resultDTO.isNext());
+        System.out.println("TOTAL : " + resultDTO.getTotalPage());
+        System.out.println("-----------------------------------------------------------");
 
         for (GuestBookDTO guestBookDTO : resultDTO.getDtoList()) {
             System.out.println(guestBookDTO);
         }
+
+        System.out.println("-------------------------PAGE NUMBER---------------------------");
+        resultDTO.getPageList().forEach(System.out::println);
     }
 }
