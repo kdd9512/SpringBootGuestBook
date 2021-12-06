@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.function.Function;
 
 @Service
-@Log4j2 // 동작을 확인하기 위해 적용하는 annotation
+@Log4j2 // 동작을 확인하기 위해 적용하는 annotation (log.info();)
 @RequiredArgsConstructor // 의존성 자동주입.
 public class GuestBookServiceImpl implements GuestBookService {
 
