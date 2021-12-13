@@ -41,13 +41,13 @@ public class GuestbookController {
     }
 
     @PostMapping("/register")
-    public String registerPost(GuestBookDTO dto, RedirectAttributes ra) {
+    public String registerPost(GuestBookDTO dto, RedirectAttributes redirectAttributes) {
         log.info("dto..." + dto);
 
         // 새로 추가된 엔티티의 번호.
         Long gno = service.register(dto);
 
-        ra.addFlashAttribute("msg" + gno);
+        redirectAttributes.addFlashAttribute("msg" , gno);
 
         return "redirect:/guestbook/list";
     }
