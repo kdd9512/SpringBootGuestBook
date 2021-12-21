@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">GuestBook Modify Page</h1>
+        <form action="/guestbook/modify" method="post">
+            <div class="form-group">
+                <label>gno</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="gno"
+                        th:value="${dto.gno}"
+                        readonly/>
+            </div>
+            <div class="form-group">
+                <label>title</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="title"
+                        th:value="${dto.title}"/>
+            </div>
+            <div class="form-group">
+                <label>content</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="content"
+                        th:value="${dto.content}"/>
+            </div>
+            <div class="form-group">
+                <label>writer</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="writer"
+                        th:value="${dto.writer}"
+                        readonly/>
+            </div>
+            <div class="form-group">
+                <label>register date</label>
+                <input type="text"
+                       class="form-control"
+                       th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}"
+                       readonly/>
+            </div>
+            <div class="form-group">
+                <label>modify date</label>
+                <input type="text"
+                       class="form-control"
+                       th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}"
+                       readonly/>
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+        <button type="button" class="btn btn-info listBtn">List</button>
+        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+    </th:block>
+</th:block>
+</html>
+<!-- $() 이 미해결변수로 인식을 못하는데...-->
+<script th:inline="javascript">
+    let actionForm = $("form");
+    $(".removeBtn").click(
+        function () {
+            actionForm
+                .attr("action", "/guestbook/remove")
+                .attr("method", "post");
+
+            actionForm.submit();
+        }
+    )
+</script>

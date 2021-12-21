@@ -56,6 +56,10 @@ dependencies {
     // test 시에 querydsl 을 사용하기 위한 옵션 추가.
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
+
+    // jquery
+    implementation group: 'org.webjars.bower', name: 'jquery', version: '1.10.2'
+
 }
 
 
