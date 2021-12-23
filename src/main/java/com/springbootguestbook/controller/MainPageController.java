@@ -8,6 +8,7 @@ public class MainPageController {
 
     @GetMapping("/")
     public String main(){
-        return "index";
+
+        return "redirect:/guestbook/list";
     }
 }

@@ -56,19 +56,46 @@
         <button type="button" class="btn btn-primary modifyBtn">Modify</button>
         <button type="button" class="btn btn-info listBtn">List</button>
         <button type="button" class="btn btn-danger removeBtn">Remove</button>
-    </th:block>
-</th:block>
-</html>
-<!-- $() 이 미해결변수로 인식을 못하는데...-->
-<script th:inline="javascript">
-    let actionForm = $("form");
-    $(".removeBtn").click(
-        function () {
-            actionForm
-                .attr("action", "/guestbook/remove")
-                .attr("method", "post");
 
-            actionForm.submit();
-        }
-    )
-</script>
+        <!-- controller 에 반드시 RequestMapping 의 method 방식을 POST 로 정의해야한다.-->
+        <script th:inline="javascript" >
+            let actionForm = $('form');
+
+            $(".removeBtn").click(function () {
+
+                actionForm
+                    .attr("action", "/guestbook/remove")
+                    // 통신은 POST 방식으로 한다. 이 경우 반드시 controller 에서 POST 방식을 사용할 것을 선언해야 한다.
+                    .attr("method", "post");
+
+                actionForm.submit();
+            });
+
+            $(".modifyBtn").click(function (){
+                if (!confirm("수정합니까")) {
+                    return;
+                }
+                actionForm
+                    .attr("action", "/guestbook/modify")
+                    .attr("method", "post")
+                    .submit();
+            });
+
+            $(".listBtn").click(function (){
+                let pageInfo = $("input[name='page']");
+
+                actionForm.empty(); // form 태그 모든내용 삭제
+                actionForm.append(pageInfo); // 목록 페이지 이동에 필요한 내용 다시 추가.
+                actionForm
+                    .attr("action", "/guestbook/list")
+                    .attr("method", "get");
+
+                console.log(actionForm.html()); // 우선 확인 후 주석 처리.
+                actionForm.submit(); // 확인 후 주석 해제.
+            })
+        </script>
+    </th:block>
+
+</th:block>
+
+</html>

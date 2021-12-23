@@ -7,14 +7,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/guestbook")
+// method 를 정의하여 반드시 POST 방식을 사용할 것을 선언해야 한다. 기본값이 GET 이기 때문.
+@RequestMapping(value = "/guestbook")
 @Log4j2
 @RequiredArgsConstructor
 public class GuestbookController {
@@ -65,7 +63,7 @@ public class GuestbookController {
         model.addAttribute("dto", dto);
     }
 
-    @GetMapping("/remove")
+    @PostMapping("/remove")
     public String remove(long gno, RedirectAttributes redirectAttributes) {
 
         log.info("gno : " + gno);
@@ -73,5 +71,19 @@ public class GuestbookController {
         redirectAttributes.addFlashAttribute("msg", gno);
 
         return "redirect:/guestbook/list";
+    }
+
+    @PostMapping("/modify")
+    public String modify(GuestBookDTO dto, @ModelAttribute("requestDTO")
+            PageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
+        log.info("==============================post modify===================================");
+        log.info("dto : " + dto);
+
+        service.modify(dto);
+
+        redirectAttributes.addAttribute("page",requestDTO.getPage());
+        redirectAttributes.addAttribute("gno", dto.getGno());
+
+        return "redirect:/guestbook/read";
     }
 }
