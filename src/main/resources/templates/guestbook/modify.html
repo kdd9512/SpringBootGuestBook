@@ -4,6 +4,12 @@
     <th:block th:fragment="content">
         <h1 class="mt-4">GuestBook Modify Page</h1>
         <form action="/guestbook/modify" method="post">
+
+            <!-- 페이지 번호. list 로 돌아갔을 때 검색페이지를 유지하기 위한 정보를 담을 input 들. -->
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+
             <div class="form-group">
                 <label>gno</label>
                 <input
@@ -85,16 +91,22 @@
             });
 
             $(".listBtn").click(function (){
-                let pageInfo = $("input[name='page']");
+                // let pageInfo = $("input[name='page']");
+                let page = $("input[name='page']");
+                let type = $("input[name='type']");
+                let keyword = $("input[name='keyword']");
 
                 actionForm.empty(); // form 태그 모든내용 삭제
-                actionForm.append(pageInfo); // 목록 페이지 이동에 필요한 내용 다시 추가.
+
+                actionForm.append(page); // 목록 페이지 이동에 필요한 내용들을 추가.
+                actionForm.append(type); // 목록 페이지 이동에 필요한 내용들을 추가.
+                actionForm.append(keyword); // 목록 페이지 이동에 필요한 내용들을 추가.
+
                 actionForm
                     .attr("action", "/guestbook/list")
                     .attr("method", "get");
 
-                console.log(actionForm.html()); // 우선 확인 후 주석 처리.
-                actionForm.submit(); // 확인 후 주석 해제.
+                actionForm.submit();
             })
         </script>
     </th:block>

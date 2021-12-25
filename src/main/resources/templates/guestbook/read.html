@@ -43,11 +43,19 @@
                    th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
         </div>
 
-        <a th:href="@{/guestbook/modify(gno = ${dto.gno}, page=${requestDTO.page})}">
+        <!-- @ModelAttribute 로 지정한 이름이 requestDTO 이므로 넘어온 값들을 찾으려면 당연히 requestDTO 에서 찾아야. -->
+        <a th:href="@{/guestbook/modify(
+                    gno = ${dto.gno},
+                    page=${requestDTO.page},
+                    type = ${requestDTO.type},
+                    keyword = ${requestDTO.keyword})}">
             <button type="button" class="btn btn-primary">Modify</button>
         </a>
 
-        <a th:href="@{/guestbook/list(page=${requestDTO.page})}">
+        <a th:href="@{/guestbook/list(
+                    page=${requestDTO.page},
+                    type = ${requestDTO.type},
+                    keyword = ${requestDTO.keyword})}">
             <button type="button" class="btn btn-info">List</button>
         </a>
 

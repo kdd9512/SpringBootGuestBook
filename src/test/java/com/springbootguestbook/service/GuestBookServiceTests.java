@@ -44,12 +44,12 @@ public class GuestBookServiceTests {
 //    }
 
     @Test
-    public void testList(){
+    public void testSearch(){
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
-                .type("tcw") // 검색조건 (ServiceImpl 의 t, c, w)
+                .type("tc") // 검색조건 (ServiceImpl 의 t, c, w)
                 .keyword("한글") // 검색키워드
                 .build();
 

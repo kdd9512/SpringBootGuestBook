@@ -46,7 +46,7 @@ public class GuestBookServiceImpl implements GuestBookService {
 
         BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건 처리.
 
-        Page<GuestBook> result = repository.findAll(pageable);
+        Page<GuestBook> result = repository.findAll(booleanBuilder,pageable); // Querydsl 사용.
 
         Function<GuestBook, GuestBookDTO> fn = (entity -> entityToDTO(entity));
 
